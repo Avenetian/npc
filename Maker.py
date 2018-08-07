@@ -5,7 +5,7 @@ import json
 from tkinter import *
 window = Tk()
 
-
+#we have to make it in a class. Too hardcoded. pls
 window.title('TestWindow')
 window.configure(background = 'IndianRed4')
 Label(window, text='Filename', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=0, column=0)
@@ -44,7 +44,7 @@ e9=Entry(window)
 e9.grid(row=9,column=1)
 e10=Entry(window)
 e10.grid(row=10,column=1)
-
+#this function goes to the above class too
 def save():
 	filename = e0.get()
 	data1  = e1.get()
