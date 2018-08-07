@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-print ('Hello World!')
+#Át kell dolgozni az egészet classokkal
 import json
 from tkinter import *
 window = Tk()
