@@ -5,7 +5,7 @@ import json
 from tkinter import *
 window = Tk()
 
-
+#Az egésznek egy classba kell beleférnie, nyilván egyszer
 window.title('TestWindow')
 window.configure(background = 'IndianRed4')
 Label(window, text='Filename', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=0, column=0)
@@ -44,7 +44,7 @@ e9=Entry(window)
 e9.grid(row=9,column=1)
 e10=Entry(window)
 e10.grid(row=10,column=1)
-
+#ugyanennek a classnak kell egy saver funkció, talán ez nem is olyan rossz, bár végigiterálhatná
 def save():
 	filename = e0.get()
 	data1  = e1.get()
