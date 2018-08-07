@@ -9,7 +9,7 @@ Label(readw, text= "Read What?", bg='Gray40', fg = "white", font='none 12 bold')
 e0=Entry(readw)
 e0.grid(row=0,column=1)
 readw.configure(background = 'Gray40')
-
+#ez az egész egy funkcióban van, elég ergya
 def opener():
 	#elcsiValue=int(e4.get())-4
 
