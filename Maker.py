@@ -6,9 +6,33 @@ from tkinter import *
 window = Tk()
 
 #we have to make it in a class. Too hardcoded. pls
+
+
+class MyLabel:
+	
+	def __init__(self,szoveg,row,col):
+		self.szoveg=szoveg
+		self.row=row
+		self.col=col
+		
+		Label(window, text=szoveg,bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=row, column=col)
+	def myEntry(self):
+		e1=Entry(window)
+		e1.grid(row=self.row,column=self.col+1)
+		return e1.get()
+	def saver():
+		print(myEntry)
+		
+						
+
+
 window.title('TestWindow')
 window.configure(background = 'IndianRed4')
-Label(window, text='Filename', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=0, column=0)
+lab1=MyLabel('Filénamé',1,0).myEntry()
+lab2=MyLabel('Név',2,0).myEntry()
+print (lab1)
+
+"""Label(window, text='Filename', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=0, column=0)
 Label(window, text='Név', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=1, column=0)
 Label(window, text='Té', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=2, column=0)
 Label(window, text='Ké', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=3, column=0)
@@ -43,9 +67,9 @@ e8.grid(row=8,column=1)
 e9=Entry(window)
 e9.grid(row=9,column=1)
 e10=Entry(window)
-e10.grid(row=10,column=1)
+e10.grid(row=10,column=1)"""
 #this function goes to the above class too
-def save():
+"""def save():
 	filename = e0.get()
 	data1  = e1.get()
 	data2 = e2.get()
@@ -61,8 +85,8 @@ def save():
 	data = {'Nev':data1, 'Te': data2, 'Ke':data3, 'Ve':data4, 'Ep':data5, 'Fp':data6, 'Sp':data7, 'Kepz':data8, 'Ell':data9, 'Tul':data10}
 	with open (filename + '.json' , 'w') as output:
 		json.dump(data, output)
-
-b = Button (window, text="Save", width=10, command=save)
-b.grid(row=11,column=0)
+"""
+b = Button (window, text="Save", width=10, command=MyLabel.saver)
+b.grid(row=3,column=0)
 window.mainloop()
 
