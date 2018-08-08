@@ -14,24 +14,29 @@ class MyLabel:
 		self.szoveg=szoveg
 		self.row=row
 		self.col=col
-		
 		Label(window, text=szoveg,bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=row, column=col)
-	def myEntry(self):
-		e1=Entry(window)
-		e1.grid(row=self.row,column=self.col+1)
-		return e1.get()
-	def saver():
-		print(myEntry)
+class MyEntry():
+	def __init__(self,row,col):
+		Entry(window).grid(row=row,column=col+1)
+	def get(self):
+		adat=Entry(window).get()
+		print (adat)		
 		
-						
+		
+
+							
 
 
 window.title('TestWindow')
 window.configure(background = 'IndianRed4')
-lab1=MyLabel('Filénamé',1,0).myEntry()
-lab2=MyLabel('Név',2,0).myEntry()
-print (lab1)
-
+lab1=MyLabel('Filénamé',1,0)
+ent1=MyEntry(1,0)
+lab2=MyLabel('Név',2,0)
+ent2=MyEntry(2,0)
+def printer():
+	ent1.get()
+button=Button(window, text="Print",command=printer).grid(row=3,column=0)
+window.mainloop()
 """Label(window, text='Filename', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=0, column=0)
 Label(window, text='Név', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=1, column=0)
 Label(window, text='Té', bg='IndianRed4', fg = 'black', font='none 12 bold').grid(row=2, column=0)
@@ -85,8 +90,8 @@ e10.grid(row=10,column=1)"""
 	data = {'Nev':data1, 'Te': data2, 'Ke':data3, 'Ve':data4, 'Ep':data5, 'Fp':data6, 'Sp':data7, 'Kepz':data8, 'Ell':data9, 'Tul':data10}
 	with open (filename + '.json' , 'w') as output:
 		json.dump(data, output)
-"""
+
 b = Button (window, text="Save", width=10, command=MyLabel.saver)
-b.grid(row=3,column=0)
-window.mainloop()
+b.grid(row=3,column=0)"""
+#window.mainloop()
 
