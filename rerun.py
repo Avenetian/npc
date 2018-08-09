@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 from tkinter import *
 import json
-names=['Filename', 'Name', 'Té','Ké','Vé','Ép','Fp','Képzettségek','Ellenállások','Tulajdonságok']
+names=['Filename', 'Name', 'Te','Ke','Ve','Ep','Fp','Kepzettsegek','Ellenallasok','Tulajdonsagok']
 dicta=[]
 dicta1=[]
 class Window:
@@ -28,12 +28,17 @@ def maker():
 		b.grid(row=1+i,column=0)
 		b1.grid(row=1+i,column=1)
 		dicta1.append(Ent(i,0))
-root=Window()
-
 
 def printer():
+	datapad={}
 	for i in range(len(dicta1)):
-		print (dicta1[i].entry.get())
+		datapad[names[i]]=(dicta1[i].entry.get())
+
+	print(datapad)
+	with open(datapad['Filename']+'.json','w') as output:
+		json.dump(datapad,output)
+root=Window()
+
 b=Button(root.app,text='Maker',command=maker)
 b.grid(row=0,column=0)
 b1=Button(root.app, text='Printer',command=printer)
