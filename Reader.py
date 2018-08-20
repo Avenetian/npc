@@ -2,30 +2,42 @@
 import sys
 import json
 from tkinter import *
+import pathlib
+from functools import partial
 import rerun
+
 def run_pls():
 	class Lwindow:
 		def __init__(self):
 			self.app=Tk()
+			self.app.title('Reader')
 		def runner_func(self):
 			self.app.mainloop()
 	bye=Lwindow()
-	class Rwindow(Frame):
-		def __init__(self):
-			self.app=Frame()
-			#self.app.title('Test Window')
-			self.app.configure(background='IndianRed4')
-		def runner_func(self):
-			self.app.mainloop()		
 	def backer():
 		bye.app.destroy()
 		rerun.main()
+	def open_file(file_name):
+		print(file_name)
+	def list_files():
+		current=pathlib.Path('.')
+		pattern="*.json"
+		counter=0
+		for f in current.glob(pattern):
+			counter+=1
+			string=str(f).replace('.json',"")
+			commfunc=partial(open_file,f)
+			Sheet(counter,0,string,commfunc) 
 	class Butt:
-		def __init__(self,row,col,comm):
-			self.b=Button(bye.app,text='BACK',command=comm)
+		def __init__(self,row,col,comm,text):
+			self.b=Button(bye.app,text=text,command=comm)
 			self.b.grid(row=row,column=col)
-	Butt(0,0,backer)
-
+	class Sheet:
+		def __init__(self,row,col,text,comm):
+			self.b=Button(bye.app, text=text,command=comm)
+			self.b.grid(row=row,column=col)
+	Butt(0,0,backer,"Back")
+	Butt(0,1,list_files,"List")
 	#valószínűleg ide egy decorator kell. Mondjuk még mindig nem tudom hogyan kéne Framere rakni egy buttont.
 	#def out_runner():
 	#	bye.runner_func()
