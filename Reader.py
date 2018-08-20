@@ -2,7 +2,38 @@
 import sys
 import json
 from tkinter import *
-readw = Tk()
+import rerun
+def run_pls():
+	class Lwindow:
+		def __init__(self):
+			self.app=Tk()
+		def runner_func(self):
+			self.app.mainloop()
+	bye=Lwindow()
+	class Rwindow(Frame):
+		def __init__(self):
+			self.app=Frame()
+			#self.app.title('Test Window')
+			self.app.configure(background='IndianRed4')
+		def runner_func(self):
+			self.app.mainloop()		
+	def backer():
+		bye.app.destroy()
+		rerun.main()
+	class Butt:
+		def __init__(self,row,col,comm):
+			self.b=Button(bye.app,text='BACK',command=comm)
+			self.b.grid(row=row,column=col)
+	Butt(0,0,backer)
+
+	#valószínűleg ide egy decorator kell. Mondjuk még mindig nem tudom hogyan kéne Framere rakni egy buttont.
+	#def out_runner():
+	#	bye.runner_func()
+	#	def runner():
+	#		Butt(0,0,backer)
+	#	runner()
+		
+"""readw = Tk()
 serial = 0
 readw.title('ReaderMenu')
 Label(readw, text= "Read What?", bg='Gray40', fg = "white", font='none 12 bold').grid(row=0,column=0)
@@ -101,4 +132,4 @@ def exit():
 b = Button (readw,text='Open', width=10, command=combine).grid(row=1,column=0)
 b_quit = Button (readw, text='Quit All', width= 20, command=exit).grid(row=1,column=1)
 
-readw.mainloop()
+"""
