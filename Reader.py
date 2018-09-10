@@ -6,39 +6,113 @@ import pathlib
 from functools import partial
 import rerun
 
-def run_pls():
-	class Lwindow:
+#some global variables that I had to exile from functions probably because I don't know a better solution
+click_counter=0
+newrow=0
+
+
+#nest for the code which I only want to run if it's executed from an other program
+def main():
+	#another nonlocal lists used by the open_file function
+	label_list=[]
+	entry_list=[]
+	
+	#The Tkinter module which opens the root window
+	class Window:
 		def __init__(self):
 			self.app=Tk()
 			self.app.title('Reader')
+			self.app.geometry("+0+0")
 		def runner_func(self):
 			self.app.mainloop()
-	bye=Lwindow()
+	root=Window()
+	
+	#button command function which returns to the previous menu
 	def backer():
-		bye.app.destroy()
+		root.app.destroy()
 		rerun.main()
+	
+	#button command function which displays the data of the chosen file
 	def open_file(file_name):
-		print(file_name)
+		#take in the global variables
+		global click_counter
+		global newrow
+		
+		#count how many times the button got pressed
+		click_counter+=1
+		#print(file_name)
+		#open the file displayed on the pressed button
+		with open (str(file_name),'r') as f:
+			data=json.load(f) 
+		"""if the click counter reaches 5 it goes back to 1. Sheets continue on the next row. This keeps the sheets
+		 inside the screen (my screen especially, 
+		its not a cross platform solution)"""
+		if click_counter==5:
+			click_counter=1
+			print ("Im full")
+			newrow=newrow+len(data)
+			print (newrow)
+
+		#print (data)
+		x=click_counter*2
+		y=(click_counter*2)+1
+		
+		#print(click_counter,x,y)
+		
+		#print (root.app.winfo_reqwidth())
+		#print (root.app.winfo_screenwidth())
+		
+			
+			
+				
+		for i in range(len(data)):
+			#backButt.b.grid(row=1+i,column=0)
+			listButt.b.grid(row=1+i,column=0)
+			label_list.append(Lab(root.app,rerun.names[i],newrow+i,x))
+			entry_list.append(Ent(root.app,newrow+i,y,data[rerun.names[i]]))
+
+
+	#button command function which lists every .json files in folder as clickable buttons
 	def list_files():
 		current=pathlib.Path('.')
 		pattern="*.json"
 		counter=0
+		click_counter=0
 		for f in current.glob(pattern):
 			counter+=1
 			string=str(f).replace('.json',"")
 			commfunc=partial(open_file,f)
-			Sheet(counter,0,string,commfunc) 
+			Butt(counter,0,commfunc,string) 
+	
+	#Button class
 	class Butt:
 		def __init__(self,row,col,comm,text):
-			self.b=Button(bye.app,text=text,command=comm)
+			self.b=Button(root.app,text=text,command=comm)
 			self.b.grid(row=row,column=col)
-	class Sheet:
-		def __init__(self,row,col,text,comm):
-			self.b=Button(bye.app, text=text,command=comm)
-			self.b.grid(row=row,column=col)
-	Butt(0,0,backer,"Back")
-	Butt(0,1,list_files,"List")
-	#valószínűleg ide egy decorator kell. Mondjuk még mindig nem tudom hogyan kéne Framere rakni egy buttont.
+	#Label class
+	class Lab:
+		def __init__(self,parent,text,row,col):
+			self.l=Label(root.app,anchor=W,justify=LEFT, text=text,bg='IndianRed4', fg = 'black', font='none 12 bold')
+			self.l.grid(row=row, column=col)
+	#Entry class
+	class Ent:
+		def __init__(self,parent,row,col,ent):
+			self.entry=Entry(root.app)
+			self.entry.grid(row=row,column=col)
+			self.entry.insert(0,ent)
+	#Frame class (Not in use at the moment)
+	class Fram:
+		def __init__(self,row,col):
+			self.frame=Frame(root.app)
+			self.frame.grid(row=row,column=col)
+	backButt =Butt(0,0,backer,"Back")
+	listButt= Butt(0,1,list_files,"List")
+	
+
+
+
+
+		#valószínűleg ide egy decorator kell. Mondjuk még mindig nem tudom hogyan kéne Framere rakni egy buttont.
 	#def out_runner():
 	#	bye.runner_func()
 	#	def runner():
